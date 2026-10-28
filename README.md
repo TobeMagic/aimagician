@@ -1,17 +1,17 @@
 <p align="center">
-  <img src="./docs/assets/readme-cover.webp" alt="AImagician cover: an open manuscript lifting into a gold constellation of glass cards" width="100%" />
+  <img src="./docs/assets/readme-cover.webp" alt="AImagician cover" width="100%" />
 </p>
 
 <h1 align="center">AImagician</h1>
 
 <p align="center">
-  <strong>Agent 可操作的自媒体运营控制面。</strong><br/>
-  文章、版本、选题、风格、封面、发布矩阵放进同一套 Postgres。<br/>
-  Cursor、Claude 和其他 MCP 客户端读写的是这一份事实，不是一堆散落的稿。
+  <strong>计算机魔术师开源的 AI 技术自媒体操作系统。</strong><br/>
+  选题、成稿、封面、审校、多平台状态记在同一篇文章上。<br/>
+  Cursor / Claude 通过 MCP 读写这一份事实，而不是在五个后台之间复制粘贴。
 </p>
 
 <p align="center">
-  <a href="#quick-start"><img alt="Quick start" src="https://img.shields.io/badge/quick%20start-5%20分钟-111111" /></a>
+  <a href="https://tobemagic.github.io/computer-magician/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-GitHub%20Pages-111111" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache%202.0-C6A15B" /></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.11%2B-3776AB" />
   <img alt="MCP" src="https://img.shields.io/badge/MCP-native-1F6FEB" />
@@ -19,17 +19,48 @@
 
 <p align="center">
   <a href="https://tobemagic.github.io/computer-magician/">在线演示</a> ·
+  <a href="#screens">界面预览</a> ·
   <a href="#quick-start">快速开始</a> ·
-  <a href="#capabilities">能力</a> ·
   <a href="#mcp">接入 MCP</a> ·
   <a href="#author">作者</a>
 </p>
 
----
+<a id="screens"></a>
+## 界面预览
+
+静态演示不连数据库，用来看工作台长什么样。文章、MCP、真发布要按 [快速开始](#quick-start) 在自己的机器上跑。
+
+<p align="center">
+  <a href="https://tobemagic.github.io/computer-magician/">打开 GitHub Pages Demo</a>
+</p>
+
+<table>
+  <tr>
+    <td width="50%">
+      <p align="center"><strong>控制主大盘</strong></p>
+      <img src="./docs/assets/demo-dashboard.webp" alt="AImagician dashboard in light mode" />
+    </td>
+    <td width="50%">
+      <p align="center"><strong>AI 写作工作台</strong></p>
+      <img src="./docs/assets/demo-writing.webp" alt="AImagician writing workbench" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <p align="center"><strong>平台发布控制台</strong></p>
+      <img src="./docs/assets/demo-publish.webp" alt="AImagician publish matrix" />
+    </td>
+    <td width="50%">
+      <p align="center"><strong>夜间模式</strong></p>
+      <img src="./docs/assets/demo-dashboard-dark.webp" alt="AImagician dashboard in dark mode" />
+    </td>
+  </tr>
+</table>
 
 ## 目录
 
 - [它解决什么](#why)
+- [界面预览](#screens)
 - [快速开始](#quick-start)
 - [能力](#capabilities)
 - [接入 MCP](#mcp)
@@ -42,7 +73,9 @@
 <a id="why"></a>
 ## 它解决什么
 
-多平台同步工具已经很多。缺的是一条能被 Agent 反复操作的运营链路：选题留下，正文有版本，每个平台的草稿、链接和失败原因都记在同一篇文章上。
+技术号发一篇，往往要在公众号、掘金、知乎、CSDN 各贴一次。稿在编辑器里，链接在备忘录里，失败原因在聊天记录里。Agent 再能干，也只能对着一堆散落的草稿复制粘贴。
+
+AImagician 把这条链路收成一套可被 Agent 反复操作的基建：选题留下，正文有版本，每个平台的草稿、链接和失败原因都记在同一篇文章上。
 
 ```mermaid
 flowchart LR
@@ -87,7 +120,7 @@ npm run dev
 curl -s http://127.0.0.1:8765/api/health
 ```
 
-静态演示（不连数据库，只能点界面）在 GitHub Pages：<https://tobemagic.github.io/computer-magician/>。文章、MCP 和发布要按上面的命令在自己的机器上跑。
+只想先点界面：<https://tobemagic.github.io/computer-magician/>。
 
 <a id="capabilities"></a>
 ## 能力
@@ -147,6 +180,7 @@ aimagician_update_publication
 ├── browser-runners/     各平台浏览器适配器，不含登录态
 ├── card-render/         卡片皮肤
 ├── docs/prompts/        可直接改的风格包
+├── docs/promo/          开源自荐话术（掘金 / V2EX / HelloGitHub / Show HN）
 ├── assets/fonts/        Noto Sans SC，SIL OFL
 └── assets/reaction-library/   反应图 manifest，图文件自行挂载
 ```
@@ -180,7 +214,7 @@ aimagician_update_publication
 
 <p align="center">
   <strong>计算机魔术师</strong><br/>
-  全栈工程师。这套基建是我写技术号时自己在用的控制面：选题、成稿、审校、多平台分发走同一篇文章库。
+  全栈工程师。这套基建是我写技术号时自己在用的操作系统：选题、成稿、审校、多平台分发走同一篇文章库。
 </p>
 
 <p align="center">
