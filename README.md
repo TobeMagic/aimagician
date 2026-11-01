@@ -1,19 +1,20 @@
-<p align="center">
-  <a href="./docs/assets/launch.mp4">
-    <img src="./docs/assets/launch.gif" alt="AImagician 发布片：把技术号收成一套 MCP" width="100%" />
-  </a>
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="./docs/assets/launch.mp4">完整 30 秒成片（有配乐）</a>
-</p>
+<img src="./docs/assets/launch.gif" alt="AImagician 30 秒发布片：把技术号收成一套 MCP" width="100%" />
 
-<h1 align="center">AImagician</h1>
+# AImagician
+
+</div>
 
 <p align="center">
   <strong>计算机魔术师开源的自媒体 Agent 基建。</strong><br/>
   选题、成稿、封面、审校、多平台状态记在同一篇文章上。<br/>
   Cursor / Claude 通过 MCP 读写这一份事实，而不是在五个后台之间复制粘贴。
+</p>
+
+<p align="center">
+  顶部 GIF 打开就能播。带配乐的完整成片在
+  <a href="https://github.com/TobeMagic/selfmedia-agent/releases/latest">Release</a>。
 </p>
 
 <p align="center">
