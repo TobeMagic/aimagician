@@ -11,20 +11,20 @@
 <h1 align="center">AImagician</h1>
 
 <p align="center">
-  <strong>计算机魔术师开源的 AI 技术自媒体操作系统。</strong><br/>
+  <strong>计算机魔术师开源的自媒体 Agent 基建。</strong><br/>
   选题、成稿、封面、审校、多平台状态记在同一篇文章上。<br/>
   Cursor / Claude 通过 MCP 读写这一份事实，而不是在五个后台之间复制粘贴。
 </p>
 
 <p align="center">
-  <a href="https://tobemagic.github.io/aimagician/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-GitHub%20Pages-111111" /></a>
+  <a href="https://tobemagic.github.io/selfmedia-agent/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-GitHub%20Pages-111111" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache%202.0-C6A15B" /></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.11%2B-3776AB" />
   <img alt="MCP" src="https://img.shields.io/badge/MCP-native-1F6FEB" />
 </p>
 
 <p align="center">
-  <a href="https://tobemagic.github.io/aimagician/">在线演示</a> ·
+  <a href="https://tobemagic.github.io/selfmedia-agent/">在线演示</a> ·
   <a href="#screens">界面预览</a> ·
   <a href="#quick-start">快速开始</a> ·
   <a href="#mcp">接入 MCP</a> ·
@@ -37,7 +37,7 @@
 静态演示不连数据库，用来看工作台长什么样。文章、MCP、真发布要按 [快速开始](#quick-start) 在自己的机器上跑。
 
 <p align="center">
-  <a href="https://tobemagic.github.io/aimagician/">打开 GitHub Pages Demo</a>
+  <a href="https://tobemagic.github.io/selfmedia-agent/">打开 GitHub Pages Demo</a>
 </p>
 
 <table>
@@ -126,7 +126,7 @@ npm run dev
 curl -s http://127.0.0.1:8765/api/health
 ```
 
-只想先点界面：<https://tobemagic.github.io/aimagician/>。
+只想先点界面：<https://tobemagic.github.io/selfmedia-agent/>。
 
 <a id="capabilities"></a>
 ## 能力
