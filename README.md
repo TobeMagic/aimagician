@@ -1,5 +1,11 @@
 <p align="center">
-  <img src="./docs/assets/readme-cover.webp" alt="AImagician cover" width="100%" />
+  <a href="./docs/assets/launch.mp4">
+    <img src="./docs/assets/launch.gif" alt="AImagician 发布片：把技术号收成一套 MCP" width="100%" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="./docs/assets/launch.mp4">完整 30 秒成片（有配乐）</a>
 </p>
 
 <h1 align="center">AImagician</h1>
@@ -11,14 +17,14 @@
 </p>
 
 <p align="center">
-  <a href="https://tobemagic.github.io/computer-magician/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-GitHub%20Pages-111111" /></a>
+  <a href="https://tobemagic.github.io/aimagician/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-GitHub%20Pages-111111" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache%202.0-C6A15B" /></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.11%2B-3776AB" />
   <img alt="MCP" src="https://img.shields.io/badge/MCP-native-1F6FEB" />
 </p>
 
 <p align="center">
-  <a href="https://tobemagic.github.io/computer-magician/">在线演示</a> ·
+  <a href="https://tobemagic.github.io/aimagician/">在线演示</a> ·
   <a href="#screens">界面预览</a> ·
   <a href="#quick-start">快速开始</a> ·
   <a href="#mcp">接入 MCP</a> ·
@@ -31,7 +37,7 @@
 静态演示不连数据库，用来看工作台长什么样。文章、MCP、真发布要按 [快速开始](#quick-start) 在自己的机器上跑。
 
 <p align="center">
-  <a href="https://tobemagic.github.io/computer-magician/">打开 GitHub Pages Demo</a>
+  <a href="https://tobemagic.github.io/aimagician/">打开 GitHub Pages Demo</a>
 </p>
 
 <table>
@@ -120,7 +126,7 @@ npm run dev
 curl -s http://127.0.0.1:8765/api/health
 ```
 
-只想先点界面：<https://tobemagic.github.io/computer-magician/>。
+只想先点界面：<https://tobemagic.github.io/aimagician/>。
 
 <a id="capabilities"></a>
 ## 能力

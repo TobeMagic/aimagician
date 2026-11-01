@@ -1,7 +1,7 @@
 # AImagician 开源自荐话术
 
-仓库：https://github.com/TobeMagic/computer-magician
-Demo：https://tobemagic.github.io/computer-magician/
+仓库：https://github.com/TobeMagic/aimagician
+Demo：https://tobemagic.github.io/aimagician/
 作者：计算机魔术师
 
 下面每条都可以直接贴。不要同一天在所有渠道群发同一段，按渠道改第一句。
@@ -22,10 +22,10 @@ Demo：https://tobemagic.github.io/computer-magician/
 - 账号、cookie、浏览器 profile 不进仓库，只留基建
 
 静态 Demo（不连库，只能点界面）：
-https://tobemagic.github.io/computer-magician/
+https://tobemagic.github.io/aimagician/
 
 源码：
-https://github.com/TobeMagic/computer-magician
+https://github.com/TobeMagic/aimagician
 
 真发文章要自己的 Postgres 和平台会话。欢迎拍砖。
 
@@ -37,13 +37,13 @@ https://github.com/TobeMagic/computer-magician
 
 正文：
 
-https://github.com/TobeMagic/computer-magician
+https://github.com/TobeMagic/aimagician
 
 自己写技术号时踩过的坑：多平台不是「一键分发」的问题，是状态记不住。这篇在掘金发了、公众号草稿还停在上周，Agent 也帮不上忙。
 
 这个仓库把选题、成稿、封面、发布矩阵放进同一套 FastAPI + Postgres，MCP 挂在 /mcp。GitHub Pages 上有静态 Demo：
 
-https://tobemagic.github.io/computer-magician/
+https://tobemagic.github.io/aimagician/
 
 不带任何登录态。本地跑需要 Python 3.11、Node、Postgres。
 
@@ -63,8 +63,8 @@ AImagician 是计算机魔术师开源的技术自媒体基建。它把选题、
 
 正文：
 
-- 仓库：https://github.com/TobeMagic/computer-magician
-- Demo：https://tobemagic.github.io/computer-magician/
+- 仓库：https://github.com/TobeMagic/aimagician
+- Demo：https://tobemagic.github.io/aimagician/
 - 一句话：把技术号的选题、成稿、封面和多平台发布状态收成一套 MCP，给 Cursor / Claude 反复操作。
 - 协议：Apache-2.0
 - 说明：静态 Demo 不连数据库；账号和 cookie 不进仓库。
@@ -74,7 +74,7 @@ AImagician 是计算机魔术师开源的技术自媒体基建。它把选题、
 ## 5. 开源中国 OSCHINA 投递软件
 
 软件名：AImagician
-官网 / 源码：https://github.com/TobeMagic/computer-magician
+官网 / 源码：https://github.com/TobeMagic/aimagician
 许可证：Apache-2.0
 简介：
 
@@ -86,9 +86,9 @@ AImagician 是计算机魔术师开源的技术自媒体基建。它把选题、
 
 标题：AImagician — 开源 AI 技术自媒体操作系统（MCP + 发布矩阵）
 
-https://github.com/TobeMagic/computer-magician
+https://github.com/TobeMagic/aimagician
 
-把选题、写作、封面、多平台发布收成一套可自托管的控制台。Cursor / Claude 走 MCP。静态 Demo：https://tobemagic.github.io/computer-magician/
+把选题、写作、封面、多平台发布收成一套可自托管的控制台。Cursor / Claude 走 MCP。静态 Demo：https://tobemagic.github.io/aimagician/
 
 ## 7. Show HN
 
@@ -105,8 +105,8 @@ AImagician is the control plane I extracted:
 - Browser adapters for the platforms; cookies stay on your machine
 - Apache-2.0, no live credentials in the repo
 
-Static demo (fixtures only): https://tobemagic.github.io/computer-magician/
-Repo: https://github.com/TobeMagic/computer-magician
+Static demo (fixtures only): https://tobemagic.github.io/aimagician/
+Repo: https://github.com/TobeMagic/aimagician
 
 Local run needs Python 3.11, Node and Postgres.
 

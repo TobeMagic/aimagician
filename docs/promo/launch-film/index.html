@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[
+  {"id":"eyebrow","type":"string","label":"眉题（标题上方小字）","default":"计算机魔术师 开源","group":"标题"},
+  {"id":"title","type":"string","label":"主标题（≤6 个字或一个产品名）","default":"AImagician","group":"标题"},
+  {"id":"subtitle","type":"string","label":"副标题（一句话 ≤16 字）","default":"把技术号收成一套 MCP","group":"标题"},
+  {"id":"card1Title","type":"string","label":"卡片 1 标题（清空就不出现）","default":"选题入库","group":"功能卡"},
+  {"id":"card1Sub","type":"string","label":"卡片 1 说明","default":"热点变成一篇文章","group":"功能卡"},
+  {"id":"card1Icon","type":"enum","label":"卡片 1 图标","default":"bolt","options":[{"value":"layers"},{"value":"wave"},{"value":"memory"},{"value":"agent"},{"value":"clock"},{"value":"phone"},{"value":"chart"},{"value":"code"},{"value":"check"},{"value":"play"},{"value":"bolt"},{"value":"lock"},{"value":"none","label":"不画图标（画编号）"}],"group":"功能卡"},
+  {"id":"card2Title","type":"string","label":"卡片 2 标题（清空就不出现）","default":"正文有版本","group":"功能卡"},
+  {"id":"card2Sub","type":"string","label":"卡片 2 说明","default":"Agent 读写同一份稿","group":"功能卡"},
+  {"id":"card2Icon","type":"enum","label":"卡片 2 图标","default":"code","options":[{"value":"layers"},{"value":"wave"},{"value":"memory"},{"value":"agent"},{"value":"clock"},{"value":"phone"},{"value":"chart"},{"value":"code"},{"value":"check"},{"value":"play"},{"value":"bolt"},{"value":"lock"},{"value":"none","label":"不画图标（画编号）"}],"group":"功能卡"},
+  {"id":"card2Value","type":"number","label":"卡片 2 上计数的数字","default":"","step":"any","group":"功能卡"},
+  {"id":"card2Suffix","type":"string","label":"卡片 2 数字后缀（要空格自己写）","default":"","group":"功能卡"},
+  {"id":"card2Label","type":"string","label":"卡片 2 数字下的小字","default":"","group":"功能卡"},
+  {"id":"card3Title","type":"string","label":"卡片 3 标题（清空就不出现）","default":"发布记状态","group":"功能卡"},
+  {"id":"card3Sub","type":"string","label":"卡片 3 说明","default":"草稿、链接、失败原因","group":"功能卡"},
+  {"id":"card3Icon","type":"enum","label":"卡片 3 图标","default":"layers","options":[{"value":"layers"},{"value":"wave"},{"value":"memory"},{"value":"agent"},{"value":"clock"},{"value":"phone"},{"value":"chart"},{"value":"code"},{"value":"check"},{"value":"play"},{"value":"bolt"},{"value":"lock"},{"value":"none","label":"不画图标（画编号）"}],"group":"功能卡"},
+  {"id":"numberValue","type":"number","label":"大数字（说到它时落定）","default":8,"step":"any","group":"大数字"},
+  {"id":"numberDecimals","type":"number","label":"大数字小数位","default":0,"min":0,"max":4,"step":1,"group":"大数字"},
+  {"id":"numberPrefix","type":"string","label":"大数字前缀（如 ¥）","default":"","group":"大数字"},
+  {"id":"numberSuffix","type":"string","label":"大数字后缀（要空格自己写）","default":" 个平台","group":"大数字"},
+  {"id":"numberCaption","type":"string","label":"大数字说明（虚构数据写明示意）","default":"公众号 · 掘金 · 知乎 · CSDN · 51CTO · B站 · InfoQ · 小红书","group":"大数字"},
+  {"id":"shotTitle","type":"string","label":"截图卡标题（清空就不出现）","default":"控制主大盘","group":"截图卡"},
+  {"id":"shotSub","type":"string","label":"截图卡说明","default":"一篇文章，一条运营事实","group":"截图卡"},
+  {"id":"shotImage","type":"string","label":"截图路径（放进 assets/，相对 index.html）","default":"assets/demo-dashboard.png","group":"截图卡"},
+  {"id":"highlightRect","type":"string","label":"截图上框出的一块（JSON [x, y, 宽, 高]，相对截图 0–1；清空不框）","default":"","group":"截图卡"},
+  {"id":"accent","type":"color","label":"强调色（步骤号、框）","default":"#2ec4b6","group":"颜色"},
+  {"id":"duration","type":"number","label":"片长（秒；有配音时至少到配音结束）","default":30,"min":2,"max":120,"step":0.5,"group":"节奏"},
+  {"id":"pace","type":"number","label":"节奏倍率（1 原速；发布会一屏常 5–8 秒，真片常用 1.5–2.5）","default":1,"min":0.5,"max":4,"step":0.1,"group":"节奏"}
+]'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>AImagician launch</title>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/om.js"></script>
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #090d16; }
+  #film { position: relative; width: 100%; height: 100%; overflow: hidden; background: #090d16; }
+  #c { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<!--
+  发布会界面（t2）：深色光斑底，一屏一件事；字从模糊里浮出，卡片是毛玻璃、轻回弹落位；截图放进玻璃卡、框出一块；大数字单独一屏。
+  The whole film is the spec below, drawn on the canvas by vendor/clip (grammar: t2_keynote_ui, from huashu-art-motion, MIT).
+  - Variables fill the "{{…}}" placeholders. Timing and structure live in the cues: `at` is the second the thing first
+    shows (a number cue's `at` is when it lands; it starts counting 0.9 s earlier); `word` anchors it to that word of
+    the narration once `om voice` has run (skills/huashu-motion/references/grammars.md).
+  - Consecutive cards without an image share one screen (up to 3); a card with `image` gets a screen of its own.
+  - Pickable regions (0-based like the spec): title · card-<i> (i-th card/step/image cue) · number-<k> · highlight-<k>.
+  - Scenes: title → cards-1 → number-1 → screenshot-1 → highlight-1.
+-->
+<div id="film" data-composition-id="film" data-start="0" data-width="1920" data-height="1080">
+  <audio id="om-sound" src="assets/sound.wav" data-start="0" data-duration="30" data-track-index="8" data-volume="1"></audio>
+  <!-- lang="en" on the canvas: symbols the fonts lack fall back to the same Latin system face as upstream; all Chinese is in the bundled fonts -->
+  <canvas id="c" lang="en" width="1920" height="1080" data-om-id="stage" data-layout-allow-overflow></canvas>
+</div>
+
+<script type="application/json" id="clip-spec">
+{
+  "grammar": "t2_keynote_ui",
+  "duration": "{{duration}}",
+  "pace": "{{pace}}",
+  "fps": 30,
+  "data": { "eyebrow": "{{eyebrow}}", "title": "{{title}}", "subtitle": "{{subtitle}}", "accent": "{{accent}}" },
+  "cues": [
+    { "at": -1.4, "kind": "title" },
+    { "at": 2.0, "kind": "card", "text": "{{card1Title}}", "sub": "{{card1Sub}}", "data": { "icon": "{{card1Icon}}" } },
+    { "at": 2.4, "kind": "card", "text": "{{card2Title}}", "sub": "{{card2Sub}}", "data": { "icon": "{{card2Icon}}" } },
+    { "at": 2.8, "kind": "card", "text": "{{card3Title}}", "sub": "{{card3Sub}}", "data": { "icon": "{{card3Icon}}" } },
+    { "at": 6.4, "kind": "number", "text": "{{numberCaption}}", "data": { "value": "{{numberValue}}", "decimals": "{{numberDecimals}}", "prefix": "{{numberPrefix}}", "suffix": "{{numberSuffix}}" } },
+    { "at": 9.4, "kind": "card", "text": "{{shotTitle}}", "sub": "{{shotSub}}", "image": "{{shotImage}}" },
+    { "at": 14.0, "kind": "card", "text": "AI 写作工作台", "sub": "规格签署后再检索和起草", "image": "assets/demo-writing.png" },
+    { "at": 18.6, "kind": "card", "text": "发布矩阵", "sub": "先记状态，再谈分发", "image": "assets/demo-publish.png" },
+    { "at": 23.2, "kind": "card", "text": "MCP /mcp", "sub": "Cursor · Claude 读写这一份库", "image": "assets/demo-dashboard-dark.png" }
+  ]
+}
+</script>
+
+<script src="vendor/clip/lib/util.js"></script>
+<script src="vendor/clip/lib/paint.js"></script>
+<script src="vendor/clip/lib/kit.js"></script>
+<script src="vendor/clip/lib/motion.js"></script>
+<script src="vendor/clip/lib/camera.js"></script>
+<script src="vendor/clip/lib/diagram.js"></script>
+<script src="vendor/clip/lib/typo.js"></script>
+<script src="vendor/clip/lib/chart.js"></script>
+<script src="vendor/clip/lib/ui.js"></script>
+<script src="vendor/clip/lib/collage.js"></script>
+<script src="vendor/clip/lib/toon.js"></script>
+<script src="vendor/clip/cues.js"></script>
+<script src="vendor/clip/clip.js"></script>
+<script src="vendor/clip/grammars/t2_keynote_ui.js"></script>
+<script type="text/vnd.abc" id="om-score">
+X:1
+T:AImagician launch
+M:4/4
+L:1/8
+Q:1/4=96
+K:F
+V:RH inst=piano role=melody
+!mp! z2 cf g2 a2- |
+!crescendo(! a2 gf d'4 | c'4 a2 gf | a4- a2 z2 !crescendo)! |
+[K:G] !f! [Bdg]3 [Bdg]3 [Bdg]2 | [Bdg]3 [Bdg]3 [Bdg]2 | [Beg]3 [Beg]3 [Beg]2 | [Adf]3 [Adf]3 [Adf]2 | [Bdg]3 [Bdg]3 [Bdg]2 | [Beg]3 [Beg]3 [Beg]2 |
+!rit(! !ff! dg a2 !fermata![Bdgb]4 | z8 !rit)! |
+V:LH inst=piano
+!mp! F,,C,F,G, A,C F2 |
+D,,4 D,4 | B,,,4 B,,4 | A,,,4 A,2 z2 |
+[K:G] !f! G,,3 G,,3 G,,2 | E,,3 E,,3 E,,2 | C,,3 C,,3 C,,2 | D,,3 D,,3 D,,2 | G,,3 G,,3 G,,2 | E,,3 E,,3 E,,2 |
+!fermata![G,,,G,,]8 | z8 |
+V:STR inst=strings
+Z1 |
+!p! !crescendo(! [D,F,B,]8 | [C,F,A,]8 | [D,^F,A,]6 z2 !crescendo)! |
+[K:G] !f! z2 [Dd][Gg] [Aa]2 [Bb]2- | [Bb]2 [Aa][Gg] [ee']4 | [dd']4 [Bb]2 [Aa][Gg] | [Aa]4- [Aa]2 [Gg][Aa] | [Dd][Gg] [Aa]2 [Bb]2- | [Bb]2 [Aa][Gg] [ee']4 |
+!ff! [Dd][Gg] [Aa]2 !fermata![Bb]4 | z8 |
+V:PUL inst=stacc gain=0.7
+Z1 |
+!mp! D,A,DA, D,A,DA, | D,F,B,F, D,F,B,F, | D,^F,A,^F, D,^F,z2 |
+[K:G] !f! B,DGD B,DGD | B,DGD B,DGD | CEGE CEGE | A,DFD A,DFD | B,DGD B,DGD | CEGE CEGE |
+z8 | z8 |
+V:HRN inst=horn gain=0.8
+Z1 | Z3 |
+[K:G] !mf! [G,B,D]8 | [G,B,E]8 | [G,CE]8 | [F,A,D]8 | [G,B,D]8 | [G,CE]8 |
+!f! !fermata![G,B,D]8 | z8 |
+V:BAS inst=bass gain=0.9
+Z1 |
+!mp! D,,8 | B,,,8 | A,,,6 z2 |
+[K:G] !f! G,,3 G,,3 G,,2 | E,,3 E,,3 E,,2 | C,,3 C,,3 C,,2 | D,,3 D,,3 D,,2 | G,,3 G,,3 G,,2 | E,,3 E,,3 E,,2 |
+!fermata!G,,,8 | z8 |
+V:DR inst=drums kit=pop
+!mark:title! Z1 |
+!mark:cards-1! !p! C,,4 C,,4 | !mp! [C,,^F,,]^F,, ^F,,^F,, [C,,^F,,]^F,, ^F,,^F,, |
+!rise(! !crescendo(! D,,D,, D,,/D,,/D,,/D,,/ D,,/D,,/D,,/D,,/ z2 !crescendo)! !rise)! |
+!mark:screenshot-1! !hit! !f! [C,,^C,]^F,, [D,,^F,,]^F,, [C,,^F,,][C,,^F,,] [D,,^F,,]^F,, | [C,,^F,,]^F,, [D,,^F,,]^F,, [C,,^F,,][C,,^F,,] [D,,^F,,]^F,, |
+[C,,^F,,]^F,, [D,,^F,,]^F,, [C,,^F,,][C,,^F,,] [D,,^F,,]^F,, | [C,,^F,,]^F,, [D,,^F,,]^F,, [C,,^F,,][C,,^F,,] [D,,^F,,]^F,, |
+[C,,^F,,]^F,, [D,,^F,,]^F,, [C,,^F,,][C,,^F,,] [D,,^F,,]^F,, | [C,,^F,,]^F,, [D,,^F,,]^F,, [C,,^F,,] A,,/A,,/ D,,/D,,/ D,,/D,,/ |
+!mark:screenshot-4! !ff! !fermata![C,,^C,]8 | z8 |
+</script>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  CLIP.mount({
+    id: 'film',
+    tl,
+    apply(spec) {
+      for (const q of spec.cues) {
+        if (q.data && q.data.icon === 'none') delete q.data.icon;
+        if (q.data && q.data.label === '') delete q.data.label;
+        if (q.kind === 'card' && 'image' in q && !q.image) delete q.image;   // no screenshot path → a plain feature card
+      }
+      // the box sits on a screenshot: drop it when there is no screenshot card or no rect
+      const hasShot = spec.cues.some((q) => q.image);
+      spec.cues = spec.cues.filter((q) => q.kind !== 'highlight' || (hasShot && Array.isArray(q.data && q.data.rect) && q.data.rect.length === 4));
+      return spec;
+    },
+  });
+  window.__timelines['film'] = tl;
+  OM.music({ bpm: 96, marks: { title: 0 } });
+</script>
+</body>
+</html>

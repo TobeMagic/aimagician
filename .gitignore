@@ -12,3 +12,9 @@ credentials/
 browser-states/
 *.log
 .DS_Store
+docs/promo/launch-film/vendor/
+docs/promo/launch-film/.om/
+docs/promo/launch-film/out/
+docs/promo/launch-film/index-*.png
+docs/promo/launch-film/assets/fonts/
+docs/promo/launch-film/assets/sound.wav
